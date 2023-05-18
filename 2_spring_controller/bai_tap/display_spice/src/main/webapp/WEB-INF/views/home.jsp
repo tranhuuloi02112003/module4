@@ -7,14 +7,18 @@
 <body>
 <h1 style="text-align: center">Sandwich Condiments</h1>
 <form action="sandwich" method="post">
-    <option id="item1" value="Lettuce" name="condiment"></option>
+    <input type="checkbox" id="item1" name="condiment" value="Lettuce">
     <label for="item1">Rau xà lách</label><br>
-    <option id="item2" value="Tomato" name="condiment"></option>
+
+    <input type="checkbox" id="item2" name="condiment" value="Tomato">
     <label for="item2">Cà chua</label><br>
-    <option id="item3" value="Lettuce" name="condiment"></option>
-    <label for="item3">Rau xà lách</label><br>
-    <option id="item4" value="Tomato" name="condiment"></option>
-    <label for="item4">Cà chua</label><br>
+
+    <input type="checkbox" id="item3" name="condiment" value="Mustard">
+    <label for="item3">Bù tạc</label><br>
+
+    <input type="checkbox" id="item4" name="condiment" value="Sprouts">
+    <label for="item4">Giá đỡ</label><br>
+
     <input type="submit" value="Submit">
 </form>
 </body>
