@@ -9,6 +9,9 @@
 <form:form modelAttribute="mailBox" action="/mailBox/update"  method="post">
 <table>
     <tr>
+        <form:hidden path="id" ></form:hidden>
+    </tr>
+    <tr>
         <td>Languages:</td>
         <td>
             <form:select path="languages">
@@ -25,9 +28,14 @@
             emails per page
         </td>
     </tr>
+<%--    <tr>--%>
+<%--        <td>Spams filter:</td>--%>
+<%--        <td><form:radiobutton path="spamsFilter" /> Enable spams fiter</td>--%>
+<%--    </tr>--%>
     <tr>
-        <td>Spams filter:</td>
-        <td><form:radiobutton path="spamsFilter" /> Enable spams fiter</td>
+        <td>Spams Filter:</td>
+        <td> <form:checkbox path="spamsFilter"/>
+            Enable spams filter</td>
     </tr>
     <tr>
         <td>Signature:</td>

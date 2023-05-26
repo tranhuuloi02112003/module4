@@ -26,8 +26,8 @@ public class MaiBoxServiceImpl implements IMailBoxService{
     }
 
     @Override
-    public boolean updateMainBox(MailBox mailBox) {
-        return repository.updateMainBox(mailBox);
+    public void updateMainBox(MailBox mailBox) {
+         repository.updateMainBox(mailBox);
     }
 
     @Override

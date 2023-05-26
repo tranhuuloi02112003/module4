@@ -27,7 +27,14 @@ public class MailBoxController {
     }
     @PostMapping("update")
     public String updateMailBox(@ModelAttribute("mailBox") MailBox mailBox ,Model model){
+        System.out.println(mailBox.getId());
+        System.out.println(mailBox.getSignature());
+        System.out.println(mailBox.getPageSize());
+        System.out.println(mailBox.getLanguages());
+        System.out.println(mailBox.isSpamsFilter());
         service.updateMainBox(mailBox);
+//
+//        System.out.println(t); boolean t=   service.updateMainBox(mailBox);
         return "redirect:/mailBox/list";
     }
 }

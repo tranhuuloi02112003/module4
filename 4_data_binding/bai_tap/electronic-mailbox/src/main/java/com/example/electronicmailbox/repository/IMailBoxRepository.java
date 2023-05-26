@@ -12,5 +12,5 @@ public interface IMailBoxRepository {
 
     List<Integer> showListPageSize();
 
-    boolean updateMainBox(MailBox mailBox);
+    void updateMainBox(MailBox mailBox);
 }

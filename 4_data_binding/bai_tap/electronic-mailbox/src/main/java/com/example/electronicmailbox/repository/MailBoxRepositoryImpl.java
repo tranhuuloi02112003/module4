@@ -59,16 +59,14 @@ public class MailBoxRepositoryImpl implements IMailBoxRepository {
     }
 
     @Override
-    public boolean updateMainBox(MailBox mailBox) {
+    public void updateMainBox(MailBox mailBox) {
         for (MailBox box: list) {
             if (box.getId()==mailBox.getId()){
                 box.setLanguages(mailBox.getLanguages());
-                box.setPageSize(mailBox.getPageSize());
                 box.setSignature(mailBox.getSignature());
-//               box.setSpamsFilter(mailBox.gét);
-                return true;
+                box.setSpamsFilter(mailBox.isSpamsFilter());
+                box.setPageSize(mailBox.getPageSize());
             }
         }
-        return false;
     }
 }

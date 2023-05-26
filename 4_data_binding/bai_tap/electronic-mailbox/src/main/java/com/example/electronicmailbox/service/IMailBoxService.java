@@ -8,6 +8,6 @@ public interface IMailBoxService {
     List<MailBox> findAll();
     List<String>showListLanguages();
     List<Integer>showListPageSize();
-    boolean updateMainBox(MailBox mailBox);
+    void updateMainBox(MailBox mailBox);
     MailBox findById(int id);
 }
