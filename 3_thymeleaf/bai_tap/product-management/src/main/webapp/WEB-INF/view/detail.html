@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+    </style>
+
+</head>
+<body>
+<table th:object="${product}">
+    <tr>
+        <td>Id:</td>
+        <td th:text="*{id}"></td>
+    </tr>
+    <tr>
+        <td>Name:</td>
+        <td th:text="*{name}"></td>
+    </tr>
+    <tr>
+        <td>Price:</td>
+        <td th:text="*{price}"></td>
+    </tr>
+
+    <tr>
+        <td>Describe:</td>
+        <td th:text="*{describe}"></td>
+    </tr>
+    <tr>
+        <td>producer:</td>
+        <td th:text="*{producer}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

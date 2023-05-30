@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show list</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+    </style>
+
+</head>
+<body>
+<h2 style="text-align: center">Show list</h2>
+<h3><a th:href="@{/create}">Create</a></h3>
+
+<form th:action="@{/searchByName}" method="post">
+    <input type="text" name="name">
+    <input type="submit" value="Search">
+</form>
+<table>
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Price</td>
+        <td>Describe</td>
+        <td>Producer</td>
+        <td>Action</td>
+    </tr>
+    <tr th:each="p: ${listProduct}" th:object="${p}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{name}"></td>
+        <td th:text="*{price}"></td>
+        <td th:text="*{describe}"></td>
+        <td th:text="*{producer}"></td>
+        <td>
+            <a th:href="@{/update/{id}(id=*{id})}">Update</a>
+            <a th:href="@{/delete/{id}(id=*{id})}">Delete</a>
+            <a th:href="@{/detail/{id}(id=*{id})}">Detail</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
