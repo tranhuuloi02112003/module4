@@ -13,7 +13,6 @@ public class Declaration {
     private int numberSeats;//Số ghế
     private String departureDate;//ngày khỏi hành
     private String endDate;
-    private  String placesVisited;//nơi đã đến
     private String address;
     private String phoneNumber;
     private String email;
@@ -32,7 +31,7 @@ public class Declaration {
         this.numberSeats = numberSeats;
         this.departureDate = departureDate;
         this.endDate = endDate;
-        this.placesVisited = placesVisited;
+
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -116,14 +115,6 @@ public class Declaration {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
-    }
-
-    public String getPlacesVisited() {
-        return placesVisited;
-    }
-
-    public void setPlacesVisited(String placesVisited) {
-        this.placesVisited = placesVisited;
     }
 
     public String getAddress() {

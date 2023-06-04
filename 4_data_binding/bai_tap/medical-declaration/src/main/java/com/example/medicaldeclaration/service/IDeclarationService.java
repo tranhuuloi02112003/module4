@@ -1,6 +1,11 @@
 package com.example.medicaldeclaration.service;
 
-public interface IDeclarationService {
+import com.example.medicaldeclaration.model.Declaration;
 
+import java.util.List;
+
+public interface IDeclarationService {
+    List<Declaration> findAll();
+    void create(Declaration declaration);
 
 }

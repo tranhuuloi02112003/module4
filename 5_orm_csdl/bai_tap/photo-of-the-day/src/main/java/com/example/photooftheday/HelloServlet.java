@@ -1,4 +1,4 @@
-package com.example.medicaldeclaration;
+package com.example.photooftheday;
 
 import java.io.*;
 import javax.servlet.http.*;
