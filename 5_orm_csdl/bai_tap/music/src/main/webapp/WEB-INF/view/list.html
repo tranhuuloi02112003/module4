@@ -24,23 +24,24 @@
             <td>Tên bài hát</td>
             <td>Nghệ sĩ thể hiện</td>
             <td>Thể loại</td>
-            <td>Đường dẫn file bài hát</td>
+            <td>URL</td>
             <td>Action </td>
+            <td>Nghe nhạc</td>
         </tr>
         <tr th:each="m: ${list}" th:object="${m}" >
             <td th:text="*{id}"></td>
             <td th:text="*{nameMusic}"></td>
             <td th:text="*{nameSinger}"></td>
             <td th:text="*{category}"></td>
-            <td>
-                <audio controls>
-                    <source th:src="'horse.ogg' + *{url} " type="audio/ogg">
-                    <source th:src="'horse.mp3' + *{url}" type="audio/mpeg">
-                </audio>
-            </td>
+            <td th:text="*{url}"></td>
             <td>
                 <button><a th:href="@{/update/{id}(id=*{id})}">Update</a></button>
                 <button><a th:href="@{/delete/{id}(id=*{id})}">Delete</a></button>
+            </td>
+            <td>
+                <audio controls>
+                    <source th:src="@{'/music/' + ${m.play}}" type="audio/wav">
+                </audio>
             </td>
         </tr>
 

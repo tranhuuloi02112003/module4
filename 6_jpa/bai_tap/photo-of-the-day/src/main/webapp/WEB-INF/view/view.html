@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<img id="img-of-the-day">
+
+<script>
+    let query = 'https://api.nasa.gov/planetary/apod?api_key=i6VoGfQKsubw8bFnSnv9mtMSuJO2bu6MdPnqROEy';
+    let request = new XMLHttpRequest();
+    request.open('GET', query);
+    request.onload = function () {
+        if (request.status === 200) {
+            let response = JSON.parse(request.responseText);
+            document.getElementById('img-of-the-day').setAttribute('src', response.url);
+        }
+    };
+    request.send();
+</script>
+
+<!--<form th:action="/create" method="post" th:object="${photo}">-->
+<!--    <label>Author</label><br>-->
+<!--    <input type="text" th:field="*{nameAuthor}"><br>-->
+<!--    <label>Feedback</label><br>-->
+<!--    <input type="text" th:field="*{feedBack}" style="height: 30px"><br>-->
+<!--    <input type="submit" value="Comment">-->
+<!--    <input type="text" id="evaluate" th:field="*{evaluate}" hidden>-->
+<!--    <input type="radio" id="5" name="evaluate" value="5" onclick="setEvaluate(5)">-->
+<!--    <label for="5">+5 So awesome</label><br>-->
+<!--    <input type="radio" id="4" name="evaluate" value="4" onclick="setEvaluate(4)">-->
+<!--    <label for="4">+4 Great</label><br>-->
+<!--    <input type="radio" id="3" name="evaluate" value="3" onclick="setEvaluate(3)">-->
+<!--    <label for="3">+3 Ok</label><br>-->
+<!--    <input type="radio" id="2" name="evaluate" value="2" onclick="setEvaluate(2)">-->
+<!--    <label for="2">+2 Nothing special</label><br>-->
+<!--    <input type="radio" id="1" name="evaluate" value="1" onclick="setEvaluate(1)">-->
+<!--    <label for="1">+1 Very bad</label><br>-->
+<!--</form>-->
+<!--<script>-->
+<!--    function setEvaluate(value){-->
+<!--        document.getElementById("evaluate").value=value;-->
+<!--    }-->
+<!--</script>-->
+
+
+
+<form th:action="@{/create}" method="post" th:object="${photo}">
+    <select th:field="*{rating}">
+        <option th:value="1">1 Sao</option>
+        <option th:value="2">2 Sao</option>
+        <option th:value="3">3 Sao</option>
+        <option th:value="4">4 Sao</option>
+        <option th:value="5">5 Sao</option>
+    </select><br>
+    <p>Author</p>
+    <input type="text" th:field="*{nameAuthor}">
+    <p>Feedback:</p>
+    <textArea  th:field="*{feedBack}" rows="4" cols="50" required maxlength="100"></textArea>
+    <br>
+    <input type="submit" value="Comment"><br>
+    <span>Today comment</span>
+    <table>
+        <tr>
+            <td>Author</td>
+            <td>Feedback</td>
+            <td>Date</td>
+            <td>Like</td>
+            <td>Rating</td>
+            <td>Number of like</td>
+        </tr>
+        <tr th:each="p:${photos}" th:object="${p}">
+            <td th:text="*{nameAuthor}"></td>
+            <td th:text="*{feedBack}"></td>
+            <td th:text="*{date}"></td>
+            <td th:text="*{likes}"></td>
+            <td th:text="*{rating}"></td>
+            <td><a th:href="@{/likeComment{id}(id=*{id})}">Like comment</a></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

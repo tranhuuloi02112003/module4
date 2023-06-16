@@ -2,12 +2,14 @@ package com.example.music.config;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -16,7 +18,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring5.ISpringTemplateEngine;
@@ -27,13 +31,18 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.example.music")
 @EnableTransactionManagement
+//đọc các gt từ file và upload và gán vào các thuộc tính trong Bean.
+@PropertySource("classpath:upload_music.properties")
 public class AppConfiguration extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+//    @Value("${file-upload}")
+//    private String fileUpload;
     private ApplicationContext applicationContext;
 
     @Override
@@ -91,7 +100,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     public DriverManagerDataSource getDataSource() {
         DriverManagerDataSource datasource = new DriverManagerDataSource();
         datasource.setDriverClassName("com.mysql.jdbc.Driver");
-        datasource.setUrl("jdbc:mysql://localhost:3306/5_music?useSSL=false&useUnicode=true&characterEncoding=utf8");
+        datasource.setUrl("jdbc:mysql://localhost:3306/5_music?useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true");
         datasource.setUsername("root");
         datasource.setPassword("12345678");
         return datasource;
@@ -132,4 +141,18 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
     }
+    //Cấu hình upload file
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/music/**") // hien thi view
+                .addResourceLocations("WEB-INF/song/"); // file nguon
+    }
+
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver getResolver() throws IOException {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setMaxUploadSizePerFile(52428800);
+        return resolver;
+    }
+
 }

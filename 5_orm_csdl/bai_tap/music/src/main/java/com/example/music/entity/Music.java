@@ -1,5 +1,7 @@
 package com.example.music.entity;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,16 +16,26 @@ public class Music {
     private String nameSinger;//ca sĩ
     private String category;
     private String url;
+    private String play;
 
     public Music() {
     }
 
-    public Music(int id, String nameMusic, String nameSinger, String category, String url) {
+    public String getPlay() {
+        return play;
+    }
+
+    public void setPlay(String play) {
+        this.play = play;
+    }
+
+    public Music(int id, String nameMusic, String nameSinger, String category, String url, String play) {
         this.id = id;
         this.nameMusic = nameMusic;
         this.nameSinger = nameSinger;
         this.category = category;
         this.url = url;
+        this.play = play;
     }
 
     public int getId() {
