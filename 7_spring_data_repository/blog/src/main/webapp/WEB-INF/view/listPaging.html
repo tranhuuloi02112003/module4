@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="css.css.css">
 </head>
 <body>
 <h1>Show list</h1>
@@ -10,10 +11,11 @@
 <h3><a th:href="@{/create/blog}">Create Blog</a></h3>
 <h3><a th:href="@{/create/category}">Create Category</a></h3>
 <h3><a th:href="@{/showListCategory}">Show list Category</a></h3>
-<form th:href="@{/search}" method="post">
-    <input type="text" name="nameSearch">
+<form action="/search" method="post">
+    <input type="text" name="name" >
     <input type="submit" value="Search">
 </form>
+
 
 <table>
     <tr>

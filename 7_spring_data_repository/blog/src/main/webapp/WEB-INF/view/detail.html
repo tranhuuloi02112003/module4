@@ -11,11 +11,13 @@
         <th>Id </th>
         <th> Blog</th>
         <th>Content</th>
+        <th>Category</th>
     </tr>
     <tr>
         <td th:text="${blog.id}"></td>
         <td th:text="${blog.nameBlog}"></td>
         <td th:text="${blog.content}"></td>
+        <td th:text="${blog.category.categoryName}"></td>
     </tr>
 </table>
 

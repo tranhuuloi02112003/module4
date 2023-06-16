@@ -51,8 +51,6 @@ public class BlogServiceImpl implements IBlogService {
 
     @Override
     public Page<Blog> searchByName(String nameBlog, Pageable p) {
-
-
         return repository.searchByName("%"+nameBlog+"%",p);
     }
 }

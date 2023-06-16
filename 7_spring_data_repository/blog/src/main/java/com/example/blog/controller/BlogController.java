@@ -24,81 +24,88 @@ public class BlogController {
     private IBlogService iBlogService;
     @Autowired
     private ICategoryService iCategoryService;
-    @GetMapping("/list")
-    public String showList(Model model){
-        model.addAttribute("list", iBlogService.findAll());
-        return "/list";
-    }
+
+
 
     @GetMapping("/create/blog")
-    public String showCreate(Model model){
-        model.addAttribute("blog",new Blog());
-        model.addAttribute("categories",iCategoryService.findAll());
+    public String showCreate(Model model) {
+        model.addAttribute("blog", new Blog());
+        model.addAttribute("categories", iCategoryService.findAll());
         return "/create";
     }
+
     @PostMapping("/create/blog")
-    public String doCreate(Model model,@ModelAttribute("blog") Blog blog){
+    public String doCreate(Model model, @ModelAttribute("blog") Blog blog) {
         iBlogService.create(blog);
         return "redirect:/list";
     }
 
     @GetMapping("/create/category")
-    public String showCreateCategory(Model model){
-        model.addAttribute("category",new Category());
+    public String showCreateCategory(Model model) {
+        model.addAttribute("category", new Category());
         return "/createCategory";
     }
+
     @PostMapping("/create/category")
-    public String doCreateCategory(Model model,@ModelAttribute("category")Category category){
+    public String doCreateCategory(Model model, @ModelAttribute("category") Category category) {
         iCategoryService.createCategory(category);
         return "redirect:/list";
     }
+
     @GetMapping("/update/{id}")
-    public String showUpdate(@PathVariable("id")int id, Model model){
+    public String showUpdate(@PathVariable("id") int id, Model model) {
         model.addAttribute("blog", iBlogService.findById(id));
-        model.addAttribute("listCategory",iCategoryService.findAll());
+        model.addAttribute("listCategory", iCategoryService.findAll());
         return "/update";
     }
+
     @PostMapping("/update")
-    public String doUpdate(@ModelAttribute("blog") Blog blog){
+    public String doUpdate(@ModelAttribute("blog") Blog blog) {
         iBlogService.update(blog);
         return "redirect:/list";
     }
+
     @GetMapping("/updateCategory{categoryId}")
-    public String showUpdateCategory(Model model,@PathVariable("categoryId") int categoryId){
-        model.addAttribute("category",iCategoryService.findById(categoryId));
+    public String showUpdateCategory(Model model, @PathVariable("categoryId") int categoryId) {
+        model.addAttribute("category", iCategoryService.findById(categoryId));
         return "/updateCategory";
     }
+
     @PostMapping("/updateCategory")
-    public String doUpdateCategory(Model model,@ModelAttribute("category") Category category){
+    public String doUpdateCategory(Model model, @ModelAttribute("category") Category category) {
         iCategoryService.update(category);
         return "redirect:/showListCategory";
     }
 
     @GetMapping("/delete/{id}")
-    public String doDelete(@PathVariable("id") int id){
+    public String doDelete(@PathVariable("id") int id) {
         iBlogService.deleteById(id);
         return "redirect:/list";
     }
+
     @GetMapping("/deleteCategory{categoryId}")
-    public String doDelete(Model model,@PathVariable("categoryId") int categoryId){
+    public String doDelete(Model model, @PathVariable("categoryId") int categoryId) {
         iCategoryService.deleteById(categoryId);
         return "redirect:/showListCategory";
     }
+
     @GetMapping("/detail/{id}")
-    public String showDetail(Model model,@PathVariable("id") int id ){
+    public String showDetail(Model model, @PathVariable("id") int id) {
         model.addAttribute("blog", iBlogService.findById(id));
         return "/detail";
     }
+
     @GetMapping("/showListCategory")
-    public String showListCategory(Model model){
-        model.addAttribute("listCategory",iCategoryService.findAll());
+    public String showListCategory(Model model) {
+        model.addAttribute("listCategory", iCategoryService.findAll());
         return "/listCategory";
     }
+
     @GetMapping("/listpaging")
     public String listPaging(@RequestParam(name = "page", defaultValue = "0") int page, Model model
 //            Model model, @RequestParam("page")Optional <Integer> page,
 //            @RequestParam("size") Optional<Integer> size,@RequestParam("sort") Optional<String> sort
-    ){
+    ) {
 //        int currentPage=page.orElse(1);
 //        int pageSize=size.orElse(5);
 //        String sortField=sort.orElse("content");
@@ -116,8 +123,8 @@ public class BlogController {
 //        }
 
 //        Sort sort = Sort.by("point").ascending().and(Sort.by("name_student"));
-            Page<Blog> list = iBlogService.findAllWithPaging(PageRequest.of(page,4));
-            model.addAttribute("listBlog", list);
+        Page<Blog> list = iBlogService.findAllWithPaging(PageRequest.of(page, 4));
+        model.addAttribute("listBlog", list);
         return "/listPaging";
     }
 
@@ -131,12 +138,19 @@ public class BlogController {
         model.addAttribute("page", blogs);
         return "/listPagingSlice";
     }
-    @PostMapping("/search")
-    public String searchBlogByName(@RequestParam("nameSearch") String nameSearch,
-                                   @RequestParam(name = "page", defaultValue = "0") int page, Model model){
-        model.addAttribute("listBlog",iBlogService.searchByName(nameSearch,PageRequest.of(page,4)));
-        return "redirect:/listPaging";
 
+    //    @PostMapping("/search")
+//    public String searchBlogByName(@RequestParam("nameSearch") String nameSearch,
+//                                   @RequestParam(name = "page", defaultValue = "0") int page, Model model){
+//        model.addAttribute("listBlog",iBlogService.searchByName(nameSearch,PageRequest.of(page,4)));
+//        return "redirect:/listPaging";
+//
+//    }
+    @PostMapping("/search")
+    public String searchByName(@RequestParam("name") String name, @RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+        Page<Blog> list = iBlogService.searchByName(name, PageRequest.of(page, 2));
+        model.addAttribute("listBlog", list);
+        return "/listPaging";
     }
 
 
