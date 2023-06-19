@@ -24,7 +24,6 @@ public class UserController {
     @PostMapping("/create")
     public String create(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            System.out.println("Lỗi");
             return "/view";
         }
         return "/result";
