@@ -33,6 +33,7 @@
   <tr></tr>
 </table>
 <div >
+<!--  Phương thức hasPrevious được sử dụng để trả về true nếu trình lặp danh sách đã cho chứa nhiều phần tử hơn trong khi duyệt qua danh sách theo hướng ngược lại.-->
   <a th:if="${page.hasPrevious()}" th:href="@{/listpagingslice(size=${page.size}, page=${page.getNumber()})}"
      th:text="${page.getNumber()}"></a>
   <a th:if="${page.hasNext() || page.hasPrevious()}" th:href="@{/listpagingslice(size=${page.size}, page=${page.getNumber() + 1})}"

@@ -37,7 +37,7 @@ public class BlogController {
     @PostMapping("/create/blog")
     public String doCreate(Model model, @ModelAttribute("blog") Blog blog) {
         iBlogService.create(blog);
-        return "redirect:/list";
+        return "redirect:/listpaging";
     }
 
     @GetMapping("/create/category")
@@ -102,27 +102,7 @@ public class BlogController {
     }
 
     @GetMapping("/listpaging")
-    public String listPaging(@RequestParam(name = "page", defaultValue = "0") int page, Model model
-//            Model model, @RequestParam("page")Optional <Integer> page,
-//            @RequestParam("size") Optional<Integer> size,@RequestParam("sort") Optional<String> sort
-    ) {
-//        int currentPage=page.orElse(1);
-//        int pageSize=size.orElse(5);
-//        String sortField=sort.orElse("content");
-//        Sort sortBy=Sort.by("nameBlog").descending().and(Sort.by("content").ascending());
-//        Page<Blog> blogs=iBlogService.findAllWithPaging
-//                (PageRequest.of(currentPage-1,pageSize,Sort.by(sortField).ascending()));
-//        model.addAttribute("blogs",blogs);
-//
-//        int totalPages = blogs.getTotalPages();
-//        if (totalPages > 1) {
-//            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-//                    .boxed()
-//                    .collect(Collectors.toList());
-//            model.addAttribute("pageNumbers", pageNumbers);
-//        }
-
-//        Sort sort = Sort.by("point").ascending().and(Sort.by("name_student"));
+    public String listPaging(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
         Page<Blog> list = iBlogService.findAllWithPaging(PageRequest.of(page, 4));
         model.addAttribute("listBlog", list);
         return "/listPaging";
@@ -132,26 +112,21 @@ public class BlogController {
     public String listPagingSlice(Model model, @RequestParam("page") Optional<Integer> page,
                                   @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
+        int pageSize = size.orElse(3);
         Slice<Blog> blogs = iBlogService.findAllWithSlice(PageRequest.of(currentPage - 1, pageSize));
         model.addAttribute("blogs", blogs.getContent());
         model.addAttribute("page", blogs);
         return "/listPagingSlice";
     }
 
-    //    @PostMapping("/search")
-//    public String searchBlogByName(@RequestParam("nameSearch") String nameSearch,
-//                                   @RequestParam(name = "page", defaultValue = "0") int page, Model model){
-//        model.addAttribute("listBlog",iBlogService.searchByName(nameSearch,PageRequest.of(page,4)));
-//        return "redirect:/listPaging";
-//
-//    }
-    @PostMapping("/search")
-    public String searchByName(@RequestParam("name") String name, @RequestParam(name = "page", defaultValue = "0") int page, Model model) {
-        Page<Blog> list = iBlogService.searchByName(name, PageRequest.of(page, 2));
-        model.addAttribute("listBlog", list);
+        @PostMapping("/search")
+    public String searchBlogByName(@RequestParam("name") String nameSearch,
+                                   @RequestParam(name = "page", defaultValue = "0") int page, Model model){
+        model.addAttribute("listBlog",iBlogService.searchByName(nameSearch,PageRequest.of(page,4)));
         return "/listPaging";
+
     }
+
 
 
 }

@@ -5,7 +5,9 @@ import com.example.medicaldeclaration.model.Declaration;
 import java.util.List;
 
 public interface IDeclarationRepository {
-    List<Declaration> findAll();
+    List<String> nationality();
 
-    void create(Declaration declaration);
+    List<String> dayOfBirth();
+
+    List<String> vehicle();
 }

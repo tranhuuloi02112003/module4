@@ -4,37 +4,57 @@ import java.util.Date;
 
 public class Declaration {
     private String name;
-    private Date dayOfBirth;
-    private String gender;//giới tính
-    private String nationality;//quốc tịch
-    private String idPeople;
-    private String vehicle;//Phương tiện đi lại
-    private String idCar;
-    private int numberSeats;//Số ghế
-    private String departureDate;//ngày khỏi hành
-    private String endDate;
-    private String address;
-    private String phoneNumber;
-    private String email;
+    private String dayOfBirth;
+    private String nationality;
+    private String gender;
+    private String idCard;
+    private String vehicle;
+    private String idVehicle;
+    private String chair;
+    private String dayComeBack;
+    private String dayComeOut;
+    private String reason;
 
     public Declaration() {
     }
 
-    public Declaration(String name, Date dayOfBirth, String gender, String nationality, String idPeople, String vehicle, String idCar, int numberSeats, String departureDate, String endDate, String placesVisited, String address, String phoneNumber, String email) {
+    public Declaration(String name, String dayOfBirth,
+                       String gender, String idCard,
+                       String vehicle, String idVehicle,
+                       String chair, String dayComeBack,
+                       String dayComeOut, String reason) {
         this.name = name;
         this.dayOfBirth = dayOfBirth;
         this.gender = gender;
-        this.nationality = nationality;
-        this.idPeople = idPeople;
+        this.idCard = idCard;
         this.vehicle = vehicle;
-        this.idCar = idCar;
-        this.numberSeats = numberSeats;
-        this.departureDate = departureDate;
-        this.endDate = endDate;
+        this.idVehicle = idVehicle;
+        this.chair = chair;
+        this.dayComeBack = dayComeBack;
+        this.dayComeOut = dayComeOut;
+        this.reason = reason;
+    }
 
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
+    public Declaration(String name, String dayOfBirth, String nationality, String gender, String idCard, String vehicle, String idVehicle, String chair, String dayComeBack, String dayComeOut, String reason) {
+        this.name = name;
+        this.dayOfBirth = dayOfBirth;
+        this.nationality = nationality;
+        this.gender = gender;
+        this.idCard = idCard;
+        this.vehicle = vehicle;
+        this.idVehicle = idVehicle;
+        this.chair = chair;
+        this.dayComeBack = dayComeBack;
+        this.dayComeOut = dayComeOut;
+        this.reason = reason;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        nationality = nationality;
     }
 
     public String getName() {
@@ -45,11 +65,11 @@ public class Declaration {
         this.name = name;
     }
 
-    public Date getDayOfBirth() {
+    public String getDayOfBirth() {
         return dayOfBirth;
     }
 
-    public void setDayOfBirth(Date dayOfBirth) {
+    public void setDayOfBirth(String dayOfBirth) {
         this.dayOfBirth = dayOfBirth;
     }
 
@@ -61,20 +81,12 @@ public class Declaration {
         this.gender = gender;
     }
 
-    public String getNationality() {
-        return nationality;
+    public String getIdCard() {
+        return idCard;
     }
 
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
-
-    public String getIdPeople() {
-        return idPeople;
-    }
-
-    public void setIdPeople(String idPeople) {
-        this.idPeople = idPeople;
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 
     public String getVehicle() {
@@ -85,59 +97,43 @@ public class Declaration {
         this.vehicle = vehicle;
     }
 
-    public String getIdCar() {
-        return idCar;
+    public String getIdVehicle() {
+        return idVehicle;
     }
 
-    public void setIdCar(String idCar) {
-        this.idCar = idCar;
+    public void setIdVehicle(String idVehicle) {
+        this.idVehicle = idVehicle;
     }
 
-    public int getNumberSeats() {
-        return numberSeats;
+    public String getChair() {
+        return chair;
     }
 
-    public void setNumberSeats(int numberSeats) {
-        this.numberSeats = numberSeats;
+    public void setChair(String chair) {
+        this.chair = chair;
     }
 
-    public String getDepartureDate() {
-        return departureDate;
+    public String getDayComeBack() {
+        return dayComeBack;
     }
 
-    public void setDepartureDate(String departureDate) {
-        this.departureDate = departureDate;
+    public void setDayComeBack(String dayComeBack) {
+        this.dayComeBack = dayComeBack;
     }
 
-    public String getEndDate() {
-        return endDate;
+    public String getDayComeOut() {
+        return dayComeOut;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setDayComeOut(String dayComeOut) {
+        this.dayComeOut = dayComeOut;
     }
 
-    public String getAddress() {
-        return address;
+    public String getReason() {
+        return reason;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }
