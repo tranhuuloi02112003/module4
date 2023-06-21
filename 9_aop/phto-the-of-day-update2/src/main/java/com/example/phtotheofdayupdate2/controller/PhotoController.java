@@ -30,7 +30,6 @@ public class PhotoController {
     @PostMapping("/create")
     public String doCreate(Model model, @ModelAttribute("photo") Photo photo){
         service.create(photo);
-
         return "redirect:/view";
     }
     @GetMapping("/likeComment{id}")

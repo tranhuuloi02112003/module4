@@ -49,7 +49,7 @@ public class BlogController {
     @PostMapping("/create/category")
     public String doCreateCategory(Model model, @ModelAttribute("category") Category category) {
         iCategoryService.createCategory(category);
-        return "redirect:/list";
+        return "redirect:/listpaging";
     }
 
     @GetMapping("/update/{id}")
