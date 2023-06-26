@@ -10,4 +10,8 @@ import java.util.List;
 public interface ICodeRepository extends JpaRepository<Code,Integer> {
     @Query(value = "select c from  Code c where c.book.bookId=:id")
     List<Code> findAllCodeByBookId(@RequestParam("id") int id);
+    @Query(value = "select c from Code c where c.code=:code")
+    Code findByCode(@RequestParam("code") int code);
+    @Query(value = "select c from  Code c where c.book.bookId=:id and c.status='not borrowed' ")
+    List<Code> findAllCodeByBookIdAndNotBorrowed(@RequestParam("id") int id);
 }

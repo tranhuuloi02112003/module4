@@ -33,6 +33,8 @@ public class BookServiceImpl implements IBookService {
             if (c.getCode().equals(usedCode)) {
                 c.setStatus("borrowed");
                 book.setQuantity(book.getQuantity() - 1);
+                iCodeRepository.save(c);
+                iBookRepository.save(book);
                 return true;
             }
         }
@@ -51,11 +53,14 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public boolean returnBook(Book book, int usedCode) {
+
         List<Code> codeList = iCodeRepository.findAllCodeByBookId(book.getBookId());
         for (Code c : codeList) {
             if (c.getCode().equals(usedCode)){
                 c.setStatus("not borrowed");
                 book.setQuantity(book.getQuantity()+1);
+                iCodeRepository.save(c);
+                iBookRepository.save(book);
                 return true;
             }
         }

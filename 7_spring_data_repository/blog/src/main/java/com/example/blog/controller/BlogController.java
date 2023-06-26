@@ -26,7 +26,6 @@ public class BlogController {
     private ICategoryService iCategoryService;
 
 
-
     @GetMapping("/create/blog")
     public String showCreate(Model model) {
         model.addAttribute("blog", new Blog());
@@ -119,14 +118,13 @@ public class BlogController {
         return "/listPagingSlice";
     }
 
-        @PostMapping("/search")
+    @PostMapping("/search")
     public String searchBlogByName(@RequestParam("name") String nameSearch,
-                                   @RequestParam(name = "page", defaultValue = "0") int page, Model model){
-        model.addAttribute("listBlog",iBlogService.searchByName(nameSearch,PageRequest.of(page,4)));
+                                   @RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+        model.addAttribute("listBlog", iBlogService.searchByName(nameSearch, PageRequest.of(page, 4)));
         return "/listPaging";
 
     }
-
 
 
 }
