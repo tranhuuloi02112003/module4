@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
-
 @SessionAttributes("cart")
+@Controller
+//Annotation @SessionAttributes("cart") được sử dụng để lưu trữ model attribute trong session.
+// Trong đoạn mã trên, model attribute "cart"  sẽ được thêm vào session nếu tên attribute của
+// @ModelAttribute và @SessionAttributes giống nhau.
 public class ProductController {
     @Autowired
-    private IProductService productService;
+    private IProductService iProductService;
 
     @ModelAttribute("cart")
     public Cart setupCart() {
@@ -23,13 +26,14 @@ public class ProductController {
     @GetMapping("/shop")
     public ModelAndView showShop() {
         ModelAndView modelAndView = new ModelAndView("/shop");
-        modelAndView.addObject("products", productService.findAll());
+        modelAndView.addObject("products", iProductService.findAll());
         return modelAndView;
     }
 
     @GetMapping("/add/{id}")
     public String addToCart(@PathVariable Long id, @ModelAttribute Cart cart, @RequestParam("action") String action) {
-        Optional<Product> productOptional = productService.findById(id);
+        Optional<Product> productOptional = iProductService.findById(id);
+        //isPresent()kt object có exist không
         if (!productOptional.isPresent()) {
             return "/error.404";
         }
@@ -40,4 +44,5 @@ public class ProductController {
         cart.addProduct(productOptional.get());
         return "redirect:/shop";
     }
+
 }

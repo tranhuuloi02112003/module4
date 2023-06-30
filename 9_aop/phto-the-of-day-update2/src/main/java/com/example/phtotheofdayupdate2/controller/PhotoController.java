@@ -20,6 +20,7 @@ public class PhotoController {
 
     @Autowired
     private IPhotoService service;
+
     public List<String> badWorks() {
         List<String> list = new ArrayList<>();
         list.add("cat");
@@ -40,12 +41,11 @@ public class PhotoController {
     }
 
     @PostMapping("/create")
-    public String doCreate(Model model, @ModelAttribute("photo") Photo photo) {
-        if (badWorks().contains(photo.getFeedBack())){
-            model.addAttribute("error"," FeedBack chứa kí tự xấu");
-            return "/error";
+    public String doCreate( @ModelAttribute("photo") Photo photo) throws Exception {
+        if (badWorks().contains(photo.getFeedBack())) {
+            throw new Exception();
         }
-            service.create(photo);
+        service.create(photo);
         return "redirect:/view";
     }
 
