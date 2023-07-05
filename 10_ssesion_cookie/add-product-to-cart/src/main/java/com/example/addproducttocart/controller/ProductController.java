@@ -5,10 +5,12 @@ import com.example.addproducttocart.model.Product;
 import com.example.addproducttocart.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
+
 @SessionAttributes("cart")
 @Controller
 //Annotation @SessionAttributes("cart") được sử dụng để lưu trữ model attribute trong session.
@@ -43,6 +45,12 @@ public class ProductController {
         }
         cart.addProduct(productOptional.get());
         return "redirect:/shop";
+    }
+
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("product", iProductService.findById(id).orElse(new Product()));
+        return "/detail";
     }
 
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .img {
+            border-style: groove;
+            display: inline-block;
+
+        }
+        .img1{
+            display: inline-block;
+
+        }
+    </style>
+</head>
+<body>
+<div style="width: 20%" class="img">
+    <div class="inlineblock">
+        <img  style="width: 100%" th:src="@{${product.description}}">
+    </div>
+    <div class="fort">
+        <hr>
+        <span>Mã sản phẩm:</span>
+        <span th:text="${product.id}"></span>
+        <hr>
+        <br>
+        <span>Giá sản phẩm:</span>
+        <span th:text="${product.price}"></span>
+
+    </div>
+</div>
+<div style="width: 30%" class="img1">
+    <h6 th:text="${product.name}"></h6>
+</div>
+
+</body>
+</html>
