@@ -10,10 +10,12 @@
     <h3><a th:href="@{/create/blog}">Create Blog</a></h3>
     <h3><a th:href="@{/create/category}">Create Category</a></h3>
     <h3><a th:href="@{/showListCategory}">Show list Category</a></h3>
+
     <form action="/search" method="post">
         <input type="text" name="name" id="name">
         <input type="submit" value="Search">
     </form>
+
     <hr>
     <button onclick="search();">Search with AJAX</button>
 

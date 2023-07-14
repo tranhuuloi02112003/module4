@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Show list</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Product name</td>
+            <td>Date</td>
+            <td>Price</td>
+            <td>Quantity</td>
+            <td>Category name</td>
+            <td>Action</td>
+        </tr>
+        <tr th:each="p: ${products}" th:object="${p}">
+            <td th:text="*{id}"></td>
+            <td th:text="*{name}"></td>
+            <td th:text="*{dateRelease}"></td>
+            <td th:text="*{price}"></td>
+            <td th:text="*{quantity}"></td>
+            <td th:text="*{category.categoryName}"></td>
+            <td>
+                <a th:href="@{/delete/{id}(id=*{id})}">Delete</a>
+                <a th:href="@{/update/{id}(id=*{id})}">Update</a>
+                <a th:href="@{/detail/{id}(id=*{id})}">Detail</a>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <span>
+            <a th:if="${products.hasPrevious()}" th:href="@{/listpaging(page = ${products.number - 1})}">Previous</a>
+        </span>
+            <span th:each="pageNo: ${#numbers.sequence(0,products.totalPages - 1)}">
+            <a th:href="@{/listpaging(page = ${pageNo})}" th:text="${pageNo}"></a>
+        </span>
+            <span>
+            <a th:if="${products.hasNext()}" th:href="@{/listpaging(page = ${products.number +1})}">Next</a>
+        </span>
+    </div>
+
+
+</body>
+</html>

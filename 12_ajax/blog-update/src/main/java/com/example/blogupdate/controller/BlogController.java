@@ -121,6 +121,11 @@ public class BlogController {
         return "/listPaging";
 
     }
+//    @GetMapping("/seePosts")
+//    public String displayPosts(Model model){
+//        model.addAttribute("listBlog",iBlogService.findAll());
+//        return "/seeposts";
+//    }
 
 
 }
