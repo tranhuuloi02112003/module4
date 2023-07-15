@@ -23,6 +23,7 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation group: 'org.webjars', name: 'bootstrap', version: '5.2.3'
 }
 
 tasks.named('test') {

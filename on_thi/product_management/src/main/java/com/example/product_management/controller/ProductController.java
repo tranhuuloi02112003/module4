@@ -8,13 +8,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class ProductController {
-//    @Autowired
-//    private IProductService iProductService;
-    
+    @Autowired
+    private IProductService iProductService;
+
     @Autowired
     private ICategoryService iCategoryService;
 
@@ -33,7 +36,11 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public String doCreate(Model model, @ModelAttribute("product") Product product) {
+    public String doCreate( @Valid @ModelAttribute("product") Product product, BindingResult bindingResult,Model model) {
+        if (bindingResult.hasErrors()){
+            model.addAttribute("categories", iCategoryService.findAll());
+            return "/create";
+        }
         iProductService.create(product);
         return "redirect:/list";
     }
@@ -56,12 +63,24 @@ public class ProductController {
         iProductService.update(product);
         return "redirect:/list";
     }
+
     @GetMapping("/detail/{id}")
     public String showDetail(Model model, @PathVariable("id") int id) {
         model.addAttribute("product", iProductService.findById(id));
         return "/detail";
     }
 
+    @PostMapping("/search")
+    public String doSearch(Model model, @RequestParam("searchByName") String searchByName, @RequestParam("searchByQuantity") String searchByQuantity, @RequestParam(name = "page", defaultValue = "0") int page) {
+        Integer quantity;
+        try {
+            quantity = Integer.parseInt(searchByQuantity);
+            model.addAttribute("products", iProductService.searchByNameAndByQuantity(searchByName, quantity, PageRequest.of(page, 4)));
+        } catch (NumberFormatException e) {
+            model.addAttribute("products", iProductService.searchByNameAndByQuantity(searchByName, null, PageRequest.of(page, 4)));
+        }
+        return "/list";
+    }
 
 
 }

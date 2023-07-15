@@ -4,9 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Show list</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-    <table>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/list">Product manegement</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/create">Create</a>
+                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" href="#">Link</a>-->
+<!--                    </li>-->
+    <!--                    <li class="nav-item dropdown">-->
+    <!--                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+    <!--                            Dropdown-->
+    <!--                        </a>-->
+    <!--                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+    <!--                            <li><a class="dropdown-item" href="#">Action</a></li>-->
+    <!--                            <li><a class="dropdown-item" href="#">Another action</a></li>-->
+    <!--                            <li><hr class="dropdown-divider"></li>-->
+    <!--                            <li><a class="dropdown-item" href="#">Something else here</a></li>-->
+    <!--                        </ul>-->
+    <!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+<!--                    </li>-->
+                </ul>
+                <form class="d-flex" th:action="@{/search}" method="post">
+                    <input class="form-control me-2" type="search" name="searchByName" placeholder="Search by name" aria-label="Search">
+                    <input class="form-control me-2" type="search" name="searchByQuantity" placeholder="Search by quantity" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+<!--                <form th:action="@{/search}" method="post">-->
+<!--                    <input type="text" name="searchByName" placeholder="Search by name">-->
+<!--                    <input type="number" name="searchByQuantity" placeholder="Search by quantity">-->
+<!--                    <input type="submit" value="Search">-->
+<!--                </form>-->
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <table class="table">
+        <thead>
         <tr>
             <td>Id</td>
             <td>Product name</td>
@@ -16,31 +65,61 @@
             <td>Category name</td>
             <td>Action</td>
         </tr>
+        </thead>
         <tr th:each="p: ${products}" th:object="${p}">
             <td th:text="*{id}"></td>
             <td th:text="*{name}"></td>
-            <td th:text="*{dateRelease}"></td>
-            <td th:text="*{price}"></td>
+            <td th:text="*{#dates.format(dateRelease,'dd/MM/yyyy')}"></td>
+            <td th:text="*{#numbers.formatCurrency(price)}"></td>
             <td th:text="*{quantity}"></td>
             <td th:text="*{category.categoryName}"></td>
             <td>
-                <a th:href="@{/delete/{id}(id=*{id})}">Delete</a>
-                <a th:href="@{/update/{id}(id=*{id})}">Update</a>
-                <a th:href="@{/detail/{id}(id=*{id})}">Detail</a>
+<!--                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">-->
+<!--                    Delete-->
+<!--                </button>-->
+                <a class="btn btn-success" th:href="@{/delete/{id}(id=*{id})}">Delete</a>
+                <a class="btn btn-success" th:href="@{/update/{id}(id=*{id})}">Update</a>
+                <a class="btn btn-success" th:href="@{/detail/{id}(id=*{id})}">Detail</a>
             </td>
         </tr>
     </table>
+
+
+
+
     <div>
         <span>
-            <a th:if="${products.hasPrevious()}" th:href="@{/listpaging(page = ${products.number - 1})}">Previous</a>
+            <a th:if="${products.hasPrevious()}" th:href="@{/list(page = ${products.number - 1})}">Previous</a>
         </span>
             <span th:each="pageNo: ${#numbers.sequence(0,products.totalPages - 1)}">
-            <a th:href="@{/listpaging(page = ${pageNo})}" th:text="${pageNo}"></a>
+            <a th:href="@{/list(page = ${pageNo})}" th:text="${pageNo}"></a>
         </span>
             <span>
-            <a th:if="${products.hasNext()}" th:href="@{/listpaging(page = ${products.number +1})}">Next</a>
+            <a th:if="${products.hasNext()}" th:href="@{/list(page = ${products.number +1})}">Next</a>
         </span>
     </div>
+
+
+<!--    <div class="modal" tabindex="-1" role="dialog">-->
+<!--        <div class="modal-dialog" role="document">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title">Bạn có muốn xóa không</h5>-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                        <span aria-hidden="true">&times;</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <p>Modal body text goes here.</p>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-primary" >Có</button>-->
+<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
 
 
 </body>

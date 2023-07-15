@@ -1,7 +1,12 @@
 package com.example.product_management.entity;
 
 
+import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -9,9 +14,13 @@ public class Product {
     @Id
     @GeneratedValue
     private Integer id;
+    @NotBlank(message = "name k dc trống")
     private String name;
+    @Min(value = 1,message ="SL phải lớn hơn 1")
     private int quantity;
+    @Range(message = "GT phải lớn hơn 1 nhỏ 1000000",min = 1,max = 100000)
     private double price;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateRelease;
     @ManyToOne
     @JoinColumn(name = "category_id",referencedColumnName = "category_id")

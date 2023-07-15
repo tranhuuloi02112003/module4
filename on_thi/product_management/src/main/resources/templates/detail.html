@@ -3,38 +3,73 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 </head>
 <body>
-<table th:object="${product}">
+
+<!--<table class="table">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <td>Id</td>-->
+<!--        <td>Product name</td>-->
+<!--        <td>Date</td>-->
+<!--        <td>Price</td>-->
+<!--        <td>Quantity</td>-->
+<!--        <td>Category name</td>-->
+<!--        <td>Action</td>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tr th:each="p: ${products}" th:object="${p}">-->
+<!--        <td th:text="*{id}"></td>-->
+<!--        <td th:text="*{name}"></td>-->
+<!--        <td th:text="*{#dates.format(dateRelease,'dd/MM/yyyy')}"></td>-->
+<!--        <td th:text="*{#numbers.formatCurrency(price)}"></td>-->
+<!--        <td th:text="*{quantity}"></td>-->
+<!--        <td th:text="*{category.categoryName}"></td>-->
+<!--        <td>-->
+<!--            &lt;!&ndash;                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    Delete&ndash;&gt;-->
+<!--            &lt;!&ndash;                </button>&ndash;&gt;-->
+<!--            <a class="btn btn-success" th:href="@{/delete/{id}(id=*{id})}">Delete</a>-->
+<!--            <a class="btn btn-success" th:href="@{/update/{id}(id=*{id})}">Update</a>-->
+<!--            <a class="btn btn-success" th:href="@{/detail/{id}(id=*{id})}">Detail</a>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--</table>-->
+
+
+<h2 style="text-align: center">Chi tiết sản phẩm</h2>
+<table th:object="${product}" class="table">
     <tr>
         <th>Id</th>
-        <td th:text="*{id}"></td>
+        <th th:text="*{id}"></th>
     </tr>
     <tr>
         <th>Product name</th>
+        <th th:text="*{name}"></th>
     </tr>
     <tr>
-
+        <th>Date</th>
+        <th th:text="*{#dates.format(dateRelease,'dd/MM/yyyy')}"></th>
     </tr>
     <tr>
-
+        <th>Price</th>
+        <th th:text="*{#numbers.formatCurrency(price)}"></th>
     </tr>
-    <th>Date</th>
-    <th>Price</th>
-    <th>Quantity</th>
-    <th>Category name</th>
-    </tr>
-
     <tr>
-        <td th:text="*{id}"></td>
-        <td th:text="*{name}"></td>
-        <td th:text="*{dateRelease}"></td>
-        <td th:text="*{price}"></td>
-        <td th:text="*{quantity}"></td>
-        <td th:text="*{category.categoryName}"></td>
+        <th>Quantity</th>
+        <th th:text="*{quantity}"></th>
+    </tr>
+    <tr>
+        <th>Category name</th>
+        <th th:text="*{category.categoryName}"></th>
     </tr>
 </table>
+
+<a class="btn btn-success" th:href="@{/list}">Back to list</a>
+
 
 </body>
 </html>

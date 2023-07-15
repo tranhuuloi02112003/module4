@@ -54,4 +54,9 @@ public class ProductServiceImpl implements IProductService {
     public List<Product> findProductByPrice(double min, double max) {
         return iProductRepository.findProductByPrice(min,max);
     }
+
+    @Override
+    public Page<Product> searchByNameAndByQuantity(String searchByName, Integer searchByQuantity, Pageable p) {
+        return iProductRepository.searchByNameAndQuantity("%"+searchByName+"%",searchByQuantity,p);
+    }
 }
