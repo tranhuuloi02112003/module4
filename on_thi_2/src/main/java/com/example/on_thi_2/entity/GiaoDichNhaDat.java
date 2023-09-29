@@ -25,7 +25,7 @@ public class GiaoDichNhaDat {
     @Pattern(regexp = "^(MGD-[0-9]{4})")
     private String maGiaoDich;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date day;
+    private String day;
     @NotBlank()
     private String loaiDichVu;
     @Min(value = 500000, message = "giá phải lớn hơn hoặc bằng 500000")

@@ -62,8 +62,8 @@ public class ItemController {
         return "redirect:/list";
     }
 
-    @GetMapping("/delete/{id}")
-    public String doDelete(Model model, @PathVariable("id") int id) {
+    @GetMapping("/delete")
+    public String doDelete(Model model, @RequestParam("id") int id) {
         iGiaoDichNhaDatService.deleteById(id);
         return "redirect:/list";
     }
